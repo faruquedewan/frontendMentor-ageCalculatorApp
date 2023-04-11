@@ -41,6 +41,11 @@ submit.addEventListener("click", function (){
         
     removeRed();
     hideP();
+    
+    if (year.value<100) {
+        pYear.innerText = "Needs to be above 99" ;
+        return;
+    }
 
     if ((day.value>0) && (day.value<32)){
         if ((month.value>0) && (month.value<13)){
