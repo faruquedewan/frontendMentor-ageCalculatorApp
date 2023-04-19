@@ -1,98 +1,126 @@
 // INPUTS
-var day = document.querySelectorAll('input')[0];
-var month = document.querySelectorAll('input')[1];
-var year = document.querySelectorAll('input')[2];
+const userDay = document.querySelectorAll('input')[0];
+const userMonth = document.querySelectorAll('input')[1];
+const userYear = document.querySelectorAll('input')[2];
 // WARNINGS
-var pDay = document.getElementById('pDay');
-var pMonth = document.getElementById('pMonth');
-var pYear = document.getElementById('pYear');
+const warningTextDay = document.querySelector('.warning-day');
+const warningTextMonth = document.querySelector('.warning-month');
+const warningTextYear = document.querySelector('.warning-year');
 // OUTPUTS
-var oYears = document.querySelectorAll('span')[0];
-var oMonths = document.querySelectorAll('span')[1];
-var oDays = document.querySelectorAll('span')[2];
+const outputDays = document.querySelectorAll('span')[2];
+const outputMonths = document.querySelectorAll('span')[1];
+const outputYears = document.querySelectorAll('span')[0];
 // BUTTON
-const submit = document.querySelector('button');
-
-// PRESENT DATE (TODAY)
-const date = new Date();
-const presentDays = date.getDate() + (date.getMonth()*30) + (date.getFullYear()* 365);
+const submitButton = document.querySelector('button');
 
 function addRed() {
     for (var i=0; i<3; i++){
-        document.querySelectorAll('h2')[i].classList.add('errorh2');
-        document.querySelectorAll('input')[i].classList.add('errorinput');
+        document.querySelectorAll('label')[i].classList.add('warning-text');
+        document.querySelectorAll('input')[i].classList.add('warning-box');
     }
 }
-
 function removeRed() {
     for (var i=0; i<3; i++){
-        document.querySelectorAll('h2')[i].classList.remove('errorh2');
-        document.querySelectorAll('input')[i].classList.remove('errorinput');
+        document.querySelectorAll('label')[i].classList.remove('warning-text');
+        document.querySelectorAll('input')[i].classList.remove('warning-box');
     }
 }
-
-function hideP() {
+function hideWarningText() {
     for (var i=0; i<3; i++){
-        document.querySelectorAll('p')[i].innerText = "";
+        document.querySelectorAll('small')[i].innerText = "";
     }
 }
 
-submit.addEventListener("click", function (){
-        
+submitButton.addEventListener("click", function(e) {
+    e.preventDefault();
     removeRed();
-    hideP();
-    
-    if (year.value<100) {
-        pYear.innerText = "Needs to be above 99" ;
-        return;
-    }
+    hideWarningText();
+    var state = true;
 
-    if ((day.value>0) && (day.value<32)){
-        if ((month.value>0) && (month.value<13)){
-            if (year.value<=date.getFullYear()){
-                // ACTION
-                const dateInput = new Date(year.value+"-"+month.value+"-"+day.value);
-                const pastDays = dateInput.getDate() + (dateInput.getMonth()*30) + (dateInput.getFullYear()* 365);
-                
-                const dayDiff = presentDays-pastDays;
-                const y = Math.trunc(dayDiff/365);
-                const m = Math.trunc((dayDiff%365)/30);
-                const d = Math.trunc((dayDiff%365)%30);
+    // PRESENT DATE
+    const presentDate = new Date();
+    const userDate = new Date(userYear.value, userMonth.value-1, userDay.value);
 
-                oYears.innerText = y;
-                oMonths.innerText = m;
-                oDays.innerText = d;
-            } else { 
-                addRed();
-                pYear.innerText = "Must be in the past" };
-        } else {
-            addRed();
-            pMonth.innerText = "Must be a valid month"  };
-    } else {
-        addRed();
-        pDay.innerText = "Must be a valid day"  };
+    const date_prevMonthDays = new Date(presentDate.getDate(), presentDate.getMonth(), 0);
 
-    if (day.value == ""){
-        pDay.innerText = "This field is required";
+    const date_daysInMonth = new Date(userYear.value, userMonth.value, 0);
+    const daysInMonth = date_daysInMonth.getDate();
+
+    // DAY CHECKER
+    if (userDay.value == ""){
+        warningTextDay.innerText = "This field is required";
+        state = false;
         addRed();
-    } 
-    if (month.value == ""){
-        pMonth.innerText = "This field is required";
+    } else if ((userDay.value<=0) || (userDay.value>31)){
+        warningTextDay.innerText = "Must be a valid day";
+        state = false;
         addRed();
-    } 
-    if (year.value == ""){
-        pYear.innerText = "This field is required";
+    } else if (userDay.value > daysInMonth){
+        warningTextDay.innerText = "Must be a valid date";
+        state = false;
         addRed();
     }
 
-    if (((month.value==9)||(month.value==4)||(month.value==6)||(month.value==11)) && (day.value>30)){
-        pDay.innerText = "Must be a valid date";
+    // MONTH CHECKER
+    if (userMonth.value == ""){
+        warningTextMonth.innerText = "This field is required";
+        state = false;
         addRed();
-    } else if ((month.value==2) && (day.value>28) && (year.value%4!==0)) {
-        pDay.innerText = "Must be a valid date";
-        addRed();
-    } else if ((month.value==2) && (day.value>29) && (year.value%4==0)) {
-        pDay.innerText = "Must be a valid date";
+    } else if ((userMonth.value<=0) || (userMonth.value>12)){
+        warningTextMonth.innerText = "Must be a valid month";
+        state = false;
         addRed();
     }
-})
+
+    // YEAR CHECKER
+    if (userYear.value == ""){
+        warningTextYear.innerText = "This field is required";
+        state = false;
+        addRed();
+    } else if (userYear.value<=0){
+        warningTextYear.innerText = "Must be a valid year";
+        state = false;
+        addRed();
+    } else if (userDate.getTime() > presentDate.getTime()) {
+        warningTextYear.innerText = "Must be in the past";
+        state = false;
+        addRed();
+    }
+
+    // CALCULATE
+    if (state) {
+        var years = presentDate.getFullYear() - userYear.value;
+        var months = (presentDate.getMonth()+1) - userMonth.value;
+        var days = presentDate.getDate() - userDay.value;
+        if (months<0) {
+            years--;
+            months = months + 12;
+        }
+        if (days<0) {
+            months--;
+            days = days + date_prevMonthDays.getDate();
+        }
+    }
+
+    // OUTOUT
+    var d = 0;
+    var m = 0;
+    var y = 0;
+    const myInterval = setInterval (function(){
+        if (y<=years){
+            outputYears.innerText = y;
+            y++;
+        }
+        if (m<=months){
+            outputMonths.innerText = m;
+            m++;
+        }
+        if (d<=days){
+            outputDays.innerText = d;
+            d++;
+        }
+        if ((y==years) && (m==months) && (d==days)){
+            clearInterval(myInterval);
+        }
+    },10)
+});

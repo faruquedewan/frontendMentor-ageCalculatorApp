@@ -17,30 +17,34 @@
 
 <body>
   <main>
-    <section class="inputs">
-      <div class="input">
-        <h2>DAY</h2>
-        <input type="number" name="day" id="" placeholder="DD">
-        <p id="pDay"></p>
-      </div>
-      <div class="input">
-        <h2>MONTH</h2>
-        <input type="number" name="month" id="" placeholder="MM">
-        <p id="pMonth"></p>
-      </div>
-      <div class="input">
-        <h2>YEAR</h2>
-        <input type="number" name="year" id="" placeholder="YYYY">
-        <p id="pYear"></p>
-      </div>
-    </section>
-      
-    <section class="break">
-      <hr>
-      <button><img src="images/icon-arrow.svg" alt="Arrow Icon" srcset=""></button>
-    </section>
+    <form>
+      <section class="input-all">
+        <div class="input-single">
+          <label for="day">DAY</label>
+          <input type="number" name="day" id="day" placeholder="DD">
+          <small class="warning-text warning-day"></small>
+        </div>
 
-    <section class="outputs">
+        <div class="input-single">
+          <label for="month">MONTH</label>
+          <input type="number" name="month" id="month" placeholder="MM">
+          <small class="warning-text warning-month"></small>
+        </div>
+
+        <div class="input-single">
+          <label for="year">YEAR</label>
+          <input type="text" name="year" id="year" placeholder="YYYY">
+          <small class="warning-text warning-year"></small>
+        </div>
+      </section>
+        
+      <section class="hr-button">
+        <hr>
+        <button><img src="images/icon-arrow.svg" alt="Arrow Icon"></button>
+      </section>
+    </form>
+
+    <section class="output-all">
       <h1>
         <span>- -</span> years <br>
         <span>- -</span> months <br>

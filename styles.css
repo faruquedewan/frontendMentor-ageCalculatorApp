@@ -22,7 +22,7 @@ body {
     background-color: var(--lightGrey);
     min-height: 100vh;
     display: grid;
-    align-content: center;
+    place-content: center;
 }
 
 /* Main */
@@ -31,52 +31,55 @@ main {
     width: 90%;
     max-width: 400px;
     padding: 13% 7%;
-    margin: 20% auto;
+    margin: 30% auto;
     border-radius: 25px 25px 100px 25px;
 }
 
 /* Main - Inputs Section */
-.inputs {
+.input-all {
     display: flex;
     gap: 1rem;
 }
-h2 {
+label {
     font-size: .75rem;
     letter-spacing: 1.25px;
     color: var(--smokeyGrey);
-    padding-block-end: .1rem;
+    padding-inline-start: .05rem;
 }
-.inputs input {
+.input-all input {
+    display: block;
     width: 100%;
     height: 3rem;
     border-radius: 10px;
     border: 1px solid var(--lightGrey);
     padding-inline-start: .75rem;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--offBlack);
+    margin-block: .1rem;
 }
-.inputs input:focus {
+.input-all input:focus {
     cursor: pointer;
     caret-color: var(--purple);
-    outline-color: var(--purple);
+    outline: none;
+    border: 1px solid var(--purple);
+    transition: .2s;
 }
-p {
+small {
     color: var(--lightRed);
     font-style: italic;
-    padding-block-start: .5rem;
-    font-size: .8rem;
+    font-size: .75rem;
 }
 
-.errorh2 {
+.warning-text {
     color: var(--lightRed);
 }
-.errorinput {
+.warning-box {
     border: 1px solid var(--lightRed) !important;
 }
 
 /* Main - Break Section */
-.break {
+.hr-button {
     padding: 25% 0;
 }
 hr {
@@ -84,19 +87,20 @@ hr {
     border-top: 1px solid var(--lightGrey);
     position: relative;
 }
-.break button {
+button {
     border: none;
     border-radius: 50px;
     background-color: var(--purple);
 }
-.break button:hover {
+button:hover {
     cursor: pointer;
     background: var(--offBlack);
+    transition: .2s;
 }
 
 /* Main - Output Section */
-.outputs {
-    font-size: 2rem;
+.output-all {
+    font-size: 2.25rem;
     font-style: italic;
     color: var(--offBlack);
 }
@@ -114,7 +118,7 @@ footer a {
 }
 
 @media screen and (max-width: 900px) {
-    .break button {
+    button {
         width: 70px; 
         height: 70px;
         position: absolute;
@@ -131,13 +135,14 @@ footer a {
         min-width: 650px;
         padding: 3rem;
         margin: 5% auto;
+        border-radius: 25px 25px 175px 25px;
     }
 
     /* Main - Inputs Section */
-    .inputs {
+    .input-all {
         padding-inline-end: 8rem;
     }
-    .inputs input {
+    input {
         height: 4rem;
         width: 90%;
         padding-inline-start: 1.25rem;
@@ -145,18 +150,18 @@ footer a {
         font-weight: 700;
         color: var(--offBlack);
     }
-    h2 {
+    label {
         font-size: .8rem;
         letter-spacing: 2px;
         padding-block-end: .5rem;
     }
 
     /* Main - Break Section */
-    .break {
+    .hr-button {
         padding: 2.75rem 0;
         position: relative;
     } 
-    .break button {
+    button {
         width: 80px; 
         height: 80px;
         position: absolute;
