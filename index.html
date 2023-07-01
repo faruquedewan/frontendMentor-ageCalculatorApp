@@ -17,46 +17,38 @@
 
 <body>
   <main>
-    <form>
-      <section class="input-all">
-        <div class="input-single">
+    <section class="section-input">
+      <form id="form">
+        <div class="div-form">
           <label for="day">DAY</label>
-          <input type="number" name="day" id="day" placeholder="DD">
-          <small class="warning-text warning-day"></small>
+          <input type="number" id="day" placeholder="DD">
+          <small></small>
         </div>
-
-        <div class="input-single">
+  
+        <div class="div-form">
           <label for="month">MONTH</label>
-          <input type="number" name="month" id="month" placeholder="MM">
-          <small class="warning-text warning-month"></small>
+          <input type="number" id="month" placeholder="MM">
+          <small></small>
         </div>
-
-        <div class="input-single">
+  
+        <div class="div-form">
           <label for="year">YEAR</label>
-          <input type="text" name="year" id="year" placeholder="YYYY">
-          <small class="warning-text warning-year"></small>
+          <input type="number" id="year" placeholder="YYYY">
+          <small></small>
         </div>
-      </section>
-        
-      <section class="hr-button">
-        <hr>
-        <button><img src="images/icon-arrow.svg" alt="Arrow Icon"></button>
-      </section>
-    </form>
 
-    <section class="output-all">
+        <button type="submit"><img src="images/icon-arrow.svg"></button>
+      </form>
+    </section>
+
+    <section class="section-output">
       <h1>
-        <span>- -</span> years <br>
-        <span>- -</span> months <br>
-        <span>- -</span> days
+        <span id="output-year">- -</span> years <br>
+        <span id="output-month">- -</span> months <br>
+        <span id="output-day">- -</span> days
       </h1>
     </section>
   </main>
-  
-  <footer>
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Faruque Dewan</a>.
-  </footer>
 
   <!-- JavaScript -->
   <script src="index.js"></script>
